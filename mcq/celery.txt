@@ -1,0 +1,27 @@
+#Instructions for celery:
+
+#Please do SET the permissions 777 for every file and directory in the project and execute the commands as user NOT as root
+
+sudo apt-get install rabbitmq-server
+
+sudo pip install django-celery(do via root if required)
+
+python manage.py syncdb
+
+sudo service rabbitmq-server start
+
+#Now in two terminals execute
+
+./manage.py celeryd --loglevel=info
+
+#AND
+
+python manage.py runserver
+
+#If there is some issue with celery run:
+
+ps auxww | grep 'celery worker' | awk '{print $2}' | xargs kill -9
+
+#And then again:
+
+./manage.py celeryd --loglevel=info

@@ -1,0 +1,127 @@
+<html>
+<body>
+<html><head><title>questions</title>
+ <script type = "text/javascript" >
+    history.pushState(null, null, 'question');
+    window.addEventListener('popstate', function(event) {
+    history.pushState(null, null, 'question');
+    });
+    
+    </script>
+</head>
+<body>
+<form method="post" action="/result/">{% csrf_token %}
+<p contenteditable="false">
+<textarea name="question" rows="25" cols="150">
+{% for i in obj %}
+{{i.question}}
+{% endfor %}
+</textarea><br>
+<input type="radio" name="choice" value="1" />1.
+{% for i in obj %}
+{{i.answer1}}
+{% endfor %}
+<br /> 
+<input type="radio" name="choice" value="2"/>2.
+{% for i in obj %}
+{{i.answer2}}
+{% endfor %}
+<br /> 
+<input type="radio" name="choice" value="3"/>3.
+{% for i in obj %}
+{{i.answer3}}
+{% endfor %}
+<br />
+<input type="radio" name="choice" value="4"/>4.
+{% for i in obj %}
+{{i.answer4}}
+{% endfor %}
+<br/></p>
+<input type="submit" name="sub_ans" value="Submit" />{{ message }}
+<br/>
+</form>
+<a href="/logout/">Logout</a><br>
+<a id="timer">00:00</a><br>
+<script>
+	window.setTimeout("refresh()",500);
+	function refresh()
+	{
+		
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		  {
+		    	CreateTimer("timer",parseInt(xmlhttp.responseText));
+		  }
+		}
+		xmlhttp.open("GET","/time",true);
+		xmlhttp.send();
+		return
+	}
+		
+	</script>
+	<script type="text/javascript">
+	//window.onload = CreateTimer("timer",{{t}});
+	var Timer;
+	var TotalSeconds;
+
+
+	function CreateTimer(timer, Time) 
+	{
+		Timer = document.getElementById(timer);
+		TotalSeconds = Time;
+
+		UpdateTimer()
+		window.setTimeout("Tick()", 1000);	
+	}
+
+	function Tick() 
+	{
+		if (TotalSeconds <= 0 || TotalSeconds>300)
+		{
+			window.location="/endgame/"
+			return;
+		}
+
+		TotalSeconds -= 1;
+		UpdateTimer()
+		window.setTimeout("Tick()", 1000);
+	}
+
+	function UpdateTimer() 
+	{
+		Seconds=TotalSeconds;
+		var Hours = Math.floor(Seconds / 3600);
+		Seconds -= Hours * (3600);
+
+		var Minutes = Math.floor(Seconds / 60);
+		Seconds -= Minutes * (60);
+
+		Hours=Hours%24
+
+		var totalTime=Set(Hours)+":"+Set(Minutes)+":"+Set(Seconds); 
+
+		Timer.innerHTML=totalTime;
+
+		function Set(Time) {
+
+		return (Time < 10) ? "0" + Time : + Time;
+
+	}
+}
+</script>
+
+
+</body>
+</html>
+
+

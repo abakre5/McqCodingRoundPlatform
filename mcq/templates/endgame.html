@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1">
+<title>Pradnya Round-1</title>
+<link rel="icon" href="{% static 'mcq/img/pradnya.png' %}" type="image/png">
+<link href="{% static 'mcq/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/style.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/font-awesome.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/responsive.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/fonts/digital.css' %}" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="{% static 'mcq/js/jquery.1.8.3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mcq/js/bootstrap.js' %}"></script>
+</head>
+
+<body style="overflow:hidden">
+
+<nav class="main-nav-outer" id="test"><!--main-nav-start-->
+    <div class="container">
+        <div class="row">
+                <ul class="main-nav">
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- <li class="small-logo"><img src="img/pradpage.jpg" alt=""></li> -->
+                        <h1 style="margin-top: 6px;color:white">Pradnya Match Result</h1>
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                </ul>
+        </div>
+        <!-- <a class="res-nav_click" href="#"><i class="fa-bars"></i></a> -->
+    </div>
+</nav><!--main-nav-end-->
+
+<section class="main-section" style="padding-top:30px;background: white;color:black;" id="rules"><!--main-section-start-->
+    <div class="container">
+            <div class="row" style="padding-bottom:20px">
+                <div class="col-sm-4" id="score">
+                    <!-- <h3 style="margin-top: 16px;color:black;font-size:40px;font-family: digital;">Team:&nbsp;&nbsp;&nbsp;{% for i in obj1 %}{{i.user}}{% endfor %}</h3>
+                    </br></br> -->
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" id="time"></div>
+            </div>
+            <div class="row" style="padding-top:15%">
+                <div class="col-sm-6">    
+                    <div class="row" style="padding-bottom:20px;background-color:black;border-radius: 25px;">
+                        <div row>
+                            <div class="col-sm-5" id="result">
+                                <h3 style="margin-top: 16px;color:white;font-size:30px;font-family: digital;">
+                                    Team : 
+                                    </h3>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
+                                <h3 style="margin-top: 16px;color:cornflowerblue;font-size:30px;font-family: digital;">{{user}}
+                                </h3>
+                                </br>
+                            </div>
+                        </div>
+                        <div row>
+                            <div class="col-sm-5" id="result">
+                                <h3 style="margin-top: 16px;color:white;font-size:30px;font-family: digital;">
+                                    Score : 
+                                    </h3>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
+                                <h3 style="margin-top: 16px;color:cornflowerblue;font-size:30px;font-family: digital;">
+                                    {{ score }}
+                                </h3>
+                                </br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="padding-left:150px;margin-top:-100px">
+                    <img src="{% static 'mcq/img/crick.png' %}" style="height:330px; width:250px;">
+                </div>
+            </div>
+            <div class="row" style="padding-left: 90%;padding-top: 50px;">
+                    <a class="link servicelink"  href="/">Exit</a>
+            </div>
+       </div>
+</section>
+
+</body>
+</html>

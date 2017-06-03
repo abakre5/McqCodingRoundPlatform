@@ -1,0 +1,11 @@
+<html>
+{% if not request.user.is_authenticated %}
+<script>window.location="/";</script>
+{% endif %}
+<form action="/skips/" method="POST">
+<input type="submit" value="Skips" name="submit">
+</form><br>
+<form action="/playmore/" method="POST">
+<input type="submit" value="Play more" name="submit">
+</form>
+</html>

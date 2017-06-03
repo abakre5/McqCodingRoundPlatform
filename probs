@@ -1,0 +1,38 @@
+1. Skips>0                   		Solved
+2. Answer a,d                		Solved
+3. Final score/endgmae       		Frontend Left 
+4. Timer run reset after skip 0 	Solved
+5. sudo pip install pytz    //for timezone
+6. pip install MySQL-python  //for mysql django link
+
+7. Dump database
+mysqldump -u root -p pradnya > pradnya.sql   Export from the PC where database is present
+mysql -u root -p pradnya < pradnya.sql                    Import into the PC where it is required
+
+
+python manage.py runserver 192.168.15.26:8000  
+
+
+
+Do DEBUG = False
+
+
+Power backup:
+link ipaddr:port/powerbackup
+if user == all
+	username = all
+else
+	username = <username>
+
+password = yolo
+
+
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+
+For 2nd attempt
+PRofiles ===>>endgame = false(untick)

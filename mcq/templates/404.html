@@ -1,0 +1,54 @@
+<html>
+<body>
+
+<html><head><title>questions</title>
+ <script type = "text/javascript" >
+    history.pushState(null, null, 'question');
+    window.addEventListener('popstate', function(event) {
+    history.pushState(null, null, 'question');
+    });
+    
+    </script>
+</head>
+<body>
+<form method="post" action="/result/">{% csrf_token %}
+<p contenteditable="false">
+<textarea name="question" rows="25" cols="150">
+{% for i in obj %}
+{{i.question}}
+{% endfor %}
+</textarea><br>
+<input type="radio" name="choice" value="1" />1.
+{% for i in obj %}
+{{i.answer1}}
+{% endfor %}
+<br /> 
+<input type="radio" name="choice" value="2"/>2.
+{% for i in obj %}
+{{i.answer2}}
+{% endfor %}
+<br /> 
+<input type="radio" name="choice" value="3"/>3.
+{% for i in obj %}
+{{i.answer3}}
+{% endfor %}
+<br />
+<input type="radio" name="choice" value="4"/>4.
+{% for i in obj %}
+{{i.answer4}}
+{% endfor %}
+<br/></p>
+<input type="submit" name="sub_ans" value="Submit" />{{ message }}
+<br />
+<input type="submit" name="skip" value="Skip" />Number of skips available: 
+{% for j in obj1 %}
+{{ j.skip }}
+{% endfor %}
+{{ message2 }}
+</form>
+<input id="button1" type='button' onclick='logoutck();' value='LOGOUT'/>
+
+</body>
+</html>
+
+

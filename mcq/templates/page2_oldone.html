@@ -1,0 +1,304 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1">
+
+<title>Pradnya Round-I</title>
+<link rel="icon" href="{% static 'mcq/img/pradnya.png' %}" type="image/png">
+<link href="{% static 'mcq/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/style.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/font-awesome.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/responsive.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/css/jquery.numberedtextarea.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mcq/fonts/digital.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{% static 'mcq/css/flipTimer.css' %}" />
+<style>
+    body {
+      background-color: white;
+    }
+    .flipTimer {
+      margin: 100px auto 0;
+      width: 500px;
+    }
+</style>
+
+<script type="text/javascript" src="{% static 'mcq/js/jquery.1.8.3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mcq/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'mcq/js/jquery.numberedtextarea.js' %}"></script>
+<script src="{% static 'mcq/js/jquery.flipTimer.js' %}"></script>
+<script type = "text/javascript" >
+    history.pushState(null, null, 'question');
+    window.addEventListener('popstate', function(event) {
+    history.pushState(null, null, 'question');
+    });
+</script>
+</head>
+
+<body style="overflow:hidden">
+
+<nav class="main-nav-outer" id="test"><!--main-nav-start-->
+	<div class="container">
+        <div class="row">
+                <ul class="main-nav">
+                    <div class="col-sm-3">
+                        <h3 style="color:white"><img style="width:60px;height:60px"src="{% static 'mcq/img/cricklogo.png' %}">&nbsp;&nbsp;Team:{% for i in obj1 %}
+                            {{i.user}}
+                            {% endfor %}</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- <li class="small-logo"><img src="img/pradpage.jpg" alt=""></li> -->
+                        <h1 style="margin-top: 6px;color:white">Pradnya Match-1</h1>
+                    </div>
+                    <div class="col-sm-3">
+                        
+                        <a class="link servicelink" style="height:80%;padding-top:15px;margin-bottom:10px;border: 2px solid grey;" href="/endgame/">Declare Match</a>
+                    </div>
+                </ul>
+        </div>
+        <div class="row" style="padding-bottom:10px">
+                <div class="col-sm-3" id="score">
+                    <h2 style="padding-top:20px;color:white;font-size:30px;"><p>&nbsp;&nbsp;&nbsp;Runs:&nbsp;&nbsp; {% for j in obj1 %} {{j.score}}  {% endfor %}</p></h2>
+                </div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-3" id="time" style="padding-left:40px;">
+                    <div class="flipTimer" style="height:60px;margin: 0px;font-size: 50px;line-height: 60px;">
+                        <div class="minutes"></div>
+                        <div class="seconds"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</nav><!--main-nav-end-->
+
+<section class="main-section" style="padding-top:20px;background: white;color:black" id="rules"><!--main-section-start-->
+	<div class="container" >
+            <!-- <div class="row" style="padding-bottom:20px">
+                <div class="col-sm-3" id="score">
+                    <h2 style="padding-top:20px;color:black;font-size:30px;"><p>&nbsp;&nbsp;&nbsp;Runs:&nbsp;&nbsp; {% for j in obj1 %} {{j.score}}  {% endfor %}</p></h2>
+                </div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-3" id="time" style="padding-left:40px;">
+                    <div class="flipTimer" style="height:60px;margin: 0px;font-size: 50px;line-height: 60px;">
+                        <div class="minutes"></div>
+                        <div class="seconds"></div>
+                    </div>    
+                </div>
+            </div> -->
+            <div class="row" style="height:100px">
+                <form method="post" action="/result/">{% csrf_token %}
+                    <p contenteditable="false">
+                    <div class="row" id="questiondiv" name="questiondiv" style="overflow-y:scroll">
+                    	<!-- <h3><p name="question" id="question" style="color:black;font-size:20px;padding-left:20px;height:80px;word-wrap:break-all"> -->
+                            <!-- <img style="width:25px;height:25px"src="{% static 'mcq/img/ball.png' %}" alt=""> -->
+                            <pre>
+                            {% for i in obj %}
+                            {{i.question}}
+                            {% endfor %}
+                         	</pre>
+                         	<!-- </p></h3> -->
+                    </div>
+                    <div class="row" id="content" style="padding-top:10px;height:300px;overflow-y:auto;">
+                    	<div class="col-sm-6" id="options">
+                    		 <div class="funkyradio">
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" id="choice1" value="1" style="width:570px"/>
+                                    <label for="choice1" id="ball1" style="padding-left:45px;padding-right:10px;word-wrap:break-word;">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer1}}
+                                    {% endfor %}
+                                    </label>
+            			     	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" style="width:570px" id="choice2" value="2"/>
+                                    <label for="choice2" style="padding-left:45px;padding-right:10px;word-wrap:break-word;" id="ball2">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer2}}
+                                    {% endfor %}
+                                    </label>
+            			    	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" style="width:570px" id="choice3" value="3"/>
+                                    <label for="choice3" style="padding-left:45px;padding-right:10px;word-wrap:break-word;" id="ball3">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer3}}
+                                    {% endfor %}
+                                    </label>
+            			     	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" style="width:570px" id="choice4" value="4"/>
+                                    <label for="choice4" style="padding-left:45px;padding-right:10px;word-wrap:break-word;" id="ball4">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer4}}
+                                    {% endfor %}
+                                    </label>
+            			        </div>
+            			    </div>
+                    	</div>
+                    	<div class="col-sm-6" id="snipcode" style="padding-top:30px">
+                    		<textarea disabled readonly="readonly" style="width:95%;height:250px;background:black;color:seashell;resize:none" name="code" id="code">{%for i in obj %}{{i.snipphet}}{% endfor %}</textarea>
+                    	</div>
+                    </div>
+                    <div class="row" style="padding-top:50px;padding-left:20%">
+                        <div class="col-sm-6">
+                            <button style="width:60%" type="submit" class="btn btn-primary"name="sub_ans" value="Submit" />Hit</button>
+                            <p>{{ message }}
+                            </p>
+                        </div>  
+                        <div class="col-sm-6" >
+                            {% for j in obj1 %}
+
+                            <div class="row">
+                                <button style="width:30%" type="submit" class="btn btn-danger"name="skip" value="Skip" />Skip to Next ball</button>
+                                 <!--<input type="submit" name="skip" value="Skip" />-->
+                            </div>
+                            {% endfor %}
+
+                            <div class="row" style="padding-right:30%">
+                                <p style="color:red">Number of skips available:;
+                                {% for j in obj1 %}
+                                {{ j.skip }}
+                                {% endfor %}
+                                {{ message2 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </form>
+            </div>
+        </div>     
+	</div>    
+</section>
+
+
+<script>
+    window.setTimeout("refresh()",500);
+    function refresh()
+    {
+        // var currentdate = new Date();
+        // var hour  = "
+        // {% for i in obj1 %}
+        // {{i.end.hour}}
+        // {% endfor %}";
+        // var min  = "
+        // {% for i in obj1 %}
+        // {{i.end.minute}}
+        // {% endfor %}";
+        // var secs  = "
+        // {% for i in obj1 %}
+        // {{i.end.second}}
+        // {% endfor %}";
+
+        // if(hour>=currentdate.getHours() && min>=currentdate.getMinutes() && secs>=currentdate.getSeconds())
+        //     window.location='/endgame';
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+                CreateTimer("timer",parseInt(xmlhttp.responseText));
+          }
+        }
+        xmlhttp.open("GET","/time",true);
+        xmlhttp.send();
+        return
+    }
+        
+    </script>
+    <script type="text/javascript">
+    //window.onload = CreateTimer("timer",{{t}});
+    var Timer;
+    var TotalSeconds;
+
+
+    function CreateTimer(timer, Time) 
+    {
+        Timer = document.getElementById(timer);
+        TotalSeconds = Time;
+
+        UpdateTimer()
+        window.setTimeout("Tick()", 1000);  
+    }
+
+    function Tick() 
+    {
+        if (TotalSeconds <= 0 || TotalSeconds>3000)
+        {
+            window.location="/endgame/"
+            return;
+        }
+
+        TotalSeconds -= 1;
+        UpdateTimer()
+        window.setTimeout("Tick()", 1000);
+    }
+
+    function UpdateTimer() 
+    {
+        Seconds=TotalSeconds;
+        var Hours = Math.floor(Seconds / 3600);
+        Seconds -= Hours * (3600);
+
+        var Minutes = Math.floor(Seconds / 60);
+        Seconds -= Minutes * (60);
+
+        Hours=Hours%24
+
+        var totalTime=Set(Hours)+":"+Set(Minutes)+":"+Set(Seconds); 
+
+        Timer.innerHTML=totalTime;
+
+        function Set(Time) {
+            return (Time < 10) ? "0" + Time : + Time;
+        }
+    }
+</script>
+
+
+<script>
+    $(document).ready(function() {
+      //Callback works only with direction = "down"
+
+	var month = "{% for i in obj1 %}{{i.end.month}}{% endfor %}";
+	var day = "{% for i in obj1 %}{{i.end.day}}{% endfor %}";
+	var year = "{% for i in obj1 %}{{i.end.year}}{% endfor %}";
+	var hour = "{% for i in obj1 %}{{i.end.hour}}{% endfor %}";
+	var minute = "{% for i in obj1 %}{{i.end.min}}{% endfor %}";
+	var second = "{% for i in obj1 %}{{i.end.second}}{% endfor %}";
+	
+	console.log(month+" "+day+" "+year)
+        var time  = "{% for i in obj1 %}{{i.end.month}} {{i.end.day}}, {{i.end.year}} {{i.end.hour}}:{{i.end.minute}}:{{i.end.second}}:{% endfor %}";
+        console.log(time);
+        $('.flipTimer').flipTimer({ 
+        direction: 'down',
+        date: time, //End time here
+        callback: function() {
+            window.location="/endgame/"
+            return;
+         }
+    });
+    });
+</script>
+
+<script>
+$('#code').numberedtextarea();
+</script>
+
+<script>
+ $('#code').bind("cut copy paste",function(e) {
+     e.preventDefault();
+ });
+</script>
+
+</body>
+</html>

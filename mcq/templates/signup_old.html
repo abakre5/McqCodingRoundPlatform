@@ -1,0 +1,27 @@
+<html>
+<body>
+<p>{{message}}</p>
+<form action="/question/" method="post"> {% csrf_token %}
+Name 1: <input type="text" name="name1">
+Name 2: <input type="text" name="name2"><br>
+Contact: <input type="text" name="contact">
+Email ID: <input type="text" name="email"><br>
+College: <input type="text" name="college"><br>
+Receipt Number: <input type="text" name="reciept"><br>
+Username: <input type="text" name="uname"><br>
+Password: <input type="password" name="passwd"><br>
+Level : <select name="level">
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+        </select>
+<input type="submit" name="signup" value="Sign Up">
+<br>
+<br>
+</form>
+<form action="/question/" method="post">
+User name: <input type="text" name="username"><br>
+Password: <input type="password" name="password"><br>
+<input type="submit" name="login" value="Log In">
+</form>
+</body>
+</html>

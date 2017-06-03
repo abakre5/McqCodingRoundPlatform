@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1">
+
+<title>Pradnya Round-1</title>
+<link rel="icon" href="img/pradnya.png" type="image/png">
+
+<!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+<!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" /> -->
+
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+<link href="css/responsive.css" rel="stylesheet" type="text/css">
+<!-- <link href="css/animate.css" rel="stylesheet" type="text/css"> -->
+<link href="css/jquery.numberedtextarea.css" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript" src="js/jquery.1.8.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.numberedtextarea.js"></script>
+<link rel="stylesheet" href="css/flipTimer.css" />
+
+<style>
+    body {
+      background-color: #b8d6df;
+    }
+    .flipTimer {
+      margin: 100px auto 0;
+      width: 500px;
+    }
+</style>
+<script src="js/jquery.flipTimer.js"></script>
+<script type = "text/javascript" >
+    history.pushState(null, null, 'question');
+    window.addEventListener('popstate', function(event) {
+    history.pushState(null, null, 'question');
+    });
+</script>
+</head>
+
+<body style="overflow:hidden">
+
+<nav class="main-nav-outer" id="test"><!--main-nav-start-->
+	<div class="container">
+        <div class="row">
+                <ul class="main-nav">
+                    <div class="col-sm-3"><img style="width:90px;height:60px"src="img/pradpage.png" alt=""></div>
+                    <div class="col-sm-6">
+                        <!-- <li class="small-logo"><img src="img/pradpage.jpg" alt=""></li> -->
+                        <h1 style="margin-top: 6px;color:lime">Pradnya Match-1</h1>
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="link servicelink" style="height:80%;padding-top:15px;margin-bottom:10px" href="/endgame/">Declare</a>
+                    </div>
+                </ul>
+        </div>
+        <!-- <a class="res-nav_click" href="#"><i class="fa-bars"></i></a> -->
+    </div>
+</nav><!--main-nav-end-->
+
+<section class="main-section" style="padding-top:30px;background: white;color:black" id="rules"><!--main-section-start-->
+	<div class="container">
+            <div class="row" style="padding-bottom:20px">
+                <div class="col-sm-4" id="score">
+                    <h2 style="color:black;font-size:30px"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Runs: {% for j in obj1 %} {{j.score}}  {% endfor %}</p></h2>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" id="time">
+                    <div class="flipTimer" style="height:100px;margin: 0px;">
+                        <!-- <div class="hours"></div> -->
+                        <div class="minutes"></div>
+                        <div class="seconds"></div>
+                    </div>
+                    <!-- <a id="timer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00</a><br></h3> -->
+                </div>
+            </div>
+            <div class="row">
+                <form method="post" action="/result/">{% csrf_token %}
+                    <p contenteditable="false">
+                    <div class="row" id="questiondiv" name="questiondiv">
+                    	<h3><p name="question" id="question">
+                            Ball:
+                            {% for i in obj %}
+                            {{i.question}}
+                            {% endfor %}
+                        </p></h3>
+                    </div>
+                    <div class="row" id="content">
+                    	<div class="col-sm-6" id="options">
+                    		 <div class="funkyradio">
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" id="choice1" value="1"/>
+                                    <label for="choice1" id="ball1">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer1}}
+                                    {% endfor %}
+                                    </label>
+            			     	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" id="choice2" value="2"/>
+                                    <label for="choice2" id="ball2">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer2}}
+                                    {% endfor %}
+                                    </label>
+            			    	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" id="choice3" value="3"/>
+                                    <label for="choice3" id="ball3">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer3}}
+                                    {% endfor %}
+                                    </label>
+            			     	</div>
+            			        <div class="funkyradio-primary">
+            			            <input type="radio" name="choice" id="choice4" value="1"/>
+                                    <label for="choice4" id="ball4">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% for i in obj %}
+                                    {{i.answer4}}
+                                    {% endfor %}
+                                    </label>
+            			        </div>
+            			    </div>
+                    	</div>
+                    	<div class="col-sm-6" id="snipcode" style="padding-top:30px">
+                    		<textarea disabled readonly="readonly" style="width:95%;height:250px;background:black;color:lime;resize:none" name="code" id="code">{% for i in obj %}&#013;{{i.snipphet}}&#013;{% endfor %}&#013;
+                    		</textarea>
+                    	</div>
+                    </div>
+                    <div class="row" style="padding-top:50px">
+                        <div class="col-sm-6">
+                            <button style="width:30%" type="submit" class="btn btn-primary"name="sub_ans" value="Submit" />Hit</button>
+                            <p>{{ message }}
+                            </p>
+                            <!-- <input type="submit" name="sub_ans" value="Submit" />{{ message }} -->
+                        </div>  
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <button style="width:30%" type="submit" class="btn btn-danger"name="skip" value="Skip" />Can't hit. Next ball</button>
+                                <!-- <input type="submit" name="skip" value="Skip" /> -->
+                            </div>
+                            <div class="row">
+                                <p style="color:red">Number of skips available:;
+                                {% for j in obj1 %}
+                                {{ j.skip }}
+                                {% endfor %}
+                                {{ message2 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </form>
+            </div>
+        </div>     
+	</div>    
+</section>
+
+
+<script>
+    $(document).ready(function() {
+      //Callback works only with direction = "down"
+      $('.flipTimer').flipTimer({ 
+        direction: 'down',
+        date: 'March 02, 2017 12:30:00', //End time here
+        // callback: function() { alert('times up!'); }
+    });
+    });
+</script>
+
+<script>
+$('#code').numberedtextarea();
+</script>
+
+<script>
+ $('#code').bind("cut copy paste",function(e) {
+     e.preventDefault();
+ });
+</script>
+
+</body>
+</html>
